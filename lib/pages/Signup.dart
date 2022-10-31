@@ -1,16 +1,36 @@
 import 'package:ethocity_v3/Constants/customclr.dart';
 import 'package:ethocity_v3/UI/Style/newStyle.dart';
 import 'package:ethocity_v3/UI/Widget/customWidgets.dart';
+import 'package:ethocity_v3/home.dart';
+import 'package:ethocity_v3/pages/homepage.dart';
+import 'package:ethocity_v3/pages/routine.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
-class signUp extends StatelessWidget {
 
+class signUp extends StatefulWidget {
+  @override
+  State<signUp> createState() => _signUpState();
+}
+
+class _signUpState extends State<signUp> {
   TextEditingController name_controller = TextEditingController();
+
   TextEditingController id_controller = TextEditingController();
+
   TextEditingController dept_controller = TextEditingController();
+
   TextEditingController sem_controller = TextEditingController();
+
   TextEditingController sec_controller = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+  Box? records;
+  @override
+  void initState() {
+    records=Hive.box("Details");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,14 +86,21 @@ class signUp extends StatelessWidget {
                         space(ht: 15),
                   
                         ElevatedButton(
-                        onPressed: (){
+                        onPressed: ()async{
                         if (_formKey.currentState!.validate()) {
-                          
+                          final controllersMap={
+                            "name":name_controller.text,
+                            "id":id_controller.text,
+                            "dept":dept_controller.text,
+                            "sem":sem_controller.text,
+                            "sec":sec_controller.text,
+                          };
+                          await records!.add(controllersMap);  
+                                      
                         }
                         } , 
                         child: Text("Register")
-                        )
-                
+                        )                
                       ],
                         
                     ),

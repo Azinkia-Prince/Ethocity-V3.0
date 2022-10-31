@@ -283,13 +283,13 @@ class _defaultWebpageState extends State<defaultWebpage> {
 
 // Custom Field
 
-SizedBox field (name,aaa,controller){
+SizedBox field (name,validator,controller){
   return SizedBox(
                 width: 250,
                 child: TextFormField(
                   controller: controller,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: aaa,
+                  validator: validator,
                   decoration: InputDecoration(
                   errorStyle: TextStyle(
                     fontSize: 10

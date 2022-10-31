@@ -7,12 +7,17 @@ import 'package:ethocity_v3/pages/notice.dart';
 import 'package:ethocity_v3/pages/portal.dart';
 import 'package:ethocity_v3/pages/routine.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 import 'home.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main()
-{
+void main()async
+{ WidgetsFlutterBinding.ensureInitialized;
+  await Hive.initFlutter();
+  var box = await Hive.openBox('Details');
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
