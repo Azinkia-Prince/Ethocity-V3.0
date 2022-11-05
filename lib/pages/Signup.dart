@@ -14,6 +14,7 @@ class signUp extends StatefulWidget {
 }
 
 class _signUpState extends State<signUp> {
+  Box?databox;
   TextEditingController name_controller = TextEditingController();
 
   TextEditingController id_controller = TextEditingController();
@@ -25,10 +26,9 @@ class _signUpState extends State<signUp> {
   TextEditingController sec_controller = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  Box? records;
   @override
   void initState() {
-    records=Hive.box("Details");
+    Box databox = Hive.box('stdnt_data');
     super.initState();
   }
 
@@ -84,19 +84,18 @@ class _signUpState extends State<signUp> {
                               else{return "Example - A or B or C";}
                         },sec_controller),
                         space(ht: 15),
-                  
+
                         ElevatedButton(
-                        onPressed: ()async{
+                        onPressed: () async{
                         if (_formKey.currentState!.validate()) {
-                          final controllersMap={
+                          Map<String, dynamic> controllersMap={
                             "name":name_controller.text,
                             "id":id_controller.text,
                             "dept":dept_controller.text,
                             "sem":sem_controller.text,
                             "sec":sec_controller.text,
                           };
-                          await records!.add(controllersMap);  
-                                      
+                          await databox!.add(controllersMap);
                         }
                         } , 
                         child: Text("Register")
